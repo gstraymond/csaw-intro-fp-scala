@@ -1,4 +1,4 @@
-# Introduction to Functional with Scala 
+# Introduction to Functional Programming with Scala 
 
 ## Slides
 
