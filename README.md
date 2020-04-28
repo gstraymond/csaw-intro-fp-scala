@@ -2,7 +2,7 @@
 
 ## Slides
 
-[slides.mdp](slides.mdp)
+[slides.md](slides.md)
 
 Slides are in markdown format and are meant to be viewed with [mdp](https://github.com/visit1985/mdp)
 
