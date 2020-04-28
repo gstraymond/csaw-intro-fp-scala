@@ -55,7 +55,7 @@ bugs.."
 
 "..and also makes the order of execution irrelevant — since
 no side-effect can change an expression’s value, it can be
-evaluated at any time." What does this allow for?
+evaluated at any time."
 
 ---
 
@@ -75,18 +75,47 @@ evaluated at any time." What does this allow for?
 
 ---
 
-    - Pure functions and functions as values
-    - Combinators
-    - Abstracting over types
-    - Composition
+-> ## Algebraic Data Types <-
+
+Algebraic Data Types (ADTs for short) are a way of
+structuring data. Mostly used with pattern matching. One use
+them to make illegal states impossible to represent.
+
+There are two basic categories of ADTs:
+
+ • product types
+ • sum types
 
 ---
 
-Functions as Objects - High Order Function
+-> ## Algebraic Data Types: Sum Type <-
+
+```
+   
+  sealed trait Bool
+   
+  object Bool {
+    case object True extends Bool
+    case object False extends Bool
+  }
+   
+```
+
+Arity is the sum of its types: 
+ • 2 : *True*, *False*
 
 ---
 
-ADT - Pattern matching
+-> ## Algebraic Data Types: Product Type <-
+
+```
+   
+  case class Boolean2(b1: Bool, b2: Bool)
+   
+```
+
+Arity is the product of its fields: 
+ • 4 : *True/True*, *True/False*, *False/True*, *False/False*
 
 ---
 
@@ -157,3 +186,18 @@ Future[A]
 ---
 
 Future[Either[E, A]]
+
+---
+
+-> Wrap-up <-
+
+---
+
+To remove
+
+    - Pure functions and functions as values
+    - Combinators
+    - Abstracting over types
+    - Composition
+
+Functions as Objects - High Order Function

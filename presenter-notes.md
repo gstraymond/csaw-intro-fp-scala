@@ -23,3 +23,9 @@
 - WORKSHEET: Referential Tranparency
 - permit to reason about a function exclusively from its INPUT/OUTPUT
 
+## Lazy Evaluation / Parallelization
+
+## Pure Function / Side-effect
+
+
+
