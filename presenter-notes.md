@@ -6,6 +6,7 @@
 - to create better programs
 - through some example using Scala (not a pure FP prog lang but most concepts applies)
 - look at Category Theory, won't do any math here :)
+- will look only at the FP part of Scala
 
 ## What is FP ?
 
@@ -26,6 +27,10 @@
 ## Lazy Evaluation / Parallelization
 
 ## Pure Function / Side-effect
+
+## Algebraic Data Type
+
+- generally used to define precisely INPUT/OUTPUT of our program
 
 
 

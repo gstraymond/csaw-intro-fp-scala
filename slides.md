@@ -61,11 +61,11 @@ evaluated at any time."
 
 -> ## Pure function and Side-effect <- 
 
-## What is a pure function?
+*What is a pure function?*
 
  • A function that has no side effects.
 
-## What is a side effect?
+*What is a side effect?*
 
  • Modifying a data structure in place
  • Setting a field on an object 
@@ -116,6 +116,62 @@ Arity is the sum of its types:
 
 Arity is the product of its fields: 
  • 4 : *True/True*, *True/False*, *False/True*, *False/False*
+
+---
+
+-> ## Pattern Matching <-
+
+Pattern matching is a mechanism for checking a value against
+a pattern. A successful match can also deconstruct a value
+into its constituent parts.
+
+```
+   
+  val x: Int = generateRandonInt()
+  
+  x match {
+    case 0 => "zero"
+    case 1 => "one"
+    case 2 => "two"
+    case _ => "other"
+  }
+   
+```
+
+---
+
+-> ## Pattern Matching <-
+
+For ADT, pattern matching can verified at compile time that
+all cases are covered. 
+
+```
+   
+  val b: Bool = ???
+  
+  bool match {
+    case True  => "true"
+    case False => "false"
+  }
+   
+```
+
+---
+
+-> ## Pattern Matching <-
+
+Pattern matching can also deconstruct case class.
+
+```
+   
+  val boolean2: Boolean2 = ???
+  
+  boolean2 match {
+    case Boolean2(True, True) => ???
+    case Boolean2(any, False) => // any can be True/False
+  }
+   
+```
 
 ---
 
