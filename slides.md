@@ -47,15 +47,7 @@ so variables, once given a value, never change."
 "More generally, functional programs contain no side-effects
 at all. A function call can have no effect other than to
 compute its result. This eliminates a major source of
-bugs.."
-
----
-
--> ## Lazy evaluation and easier parallelization <- 
-
-"..and also makes the order of execution irrelevant — since
-no side-effect can change an expression’s value, it can be
-evaluated at any time."
+bugs ..."
 
 ---
 
@@ -72,6 +64,14 @@ evaluated at any time."
  • Modifying a variable outside the scope of the function
  • Throwing an exception
  • ... 
+
+---
+
+-> ## Lazy evaluation and easier parallelization <- 
+
+"... and also makes the order of execution irrelevant — since
+no side-effect can change an expression’s value, it can be
+evaluated at any time."
 
 ---
 
@@ -94,10 +94,8 @@ There are two basic categories of ADTs:
    
   sealed trait Bool
    
-  object Bool {
-    case object True extends Bool
-    case object False extends Bool
-  }
+  case object True extends Bool
+  case object False extends Bool
    
 ```
 
@@ -188,13 +186,17 @@ directed edges are called arrows (or morphisms)."
 
 -> ## Category Theory: Functor <-
 
-map
 
-`M[A] map (A => B) = M[B]`
+```
+   
+  // for a functor F[A]
+  def map(f: A => B): F[B]
+   
+```
 
-Option[A]
-List[A]
-Map[A, B]
+- `map` is a higher-order function: take
+other functions as parameters or return functions as
+results
 
 ---
 
@@ -238,6 +240,8 @@ Error Handling - Happy path
 Async programming
 
 Future[A]
+
+- doesn't respect referential transparency
 
 ---
 

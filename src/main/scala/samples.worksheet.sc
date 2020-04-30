@@ -1,4 +1,3 @@
-
 // <- Tools ************************************************
 
 import scala.reflect.runtime.universe._
@@ -24,25 +23,87 @@ prettyType(list1)
 //list1(0) = 2
 
 // immutable class
-case class Person(name: String, age: Int)
+case class Person(
+  name: String,
+  age: Int)
 val john = Person("John", 25)
 //john.age = 26
 john.copy(age = 26)
 
 // ->
 
-// <- Referential Tranparency ******************************
+// <- Pure functions ***************************************
 
-def incr(x: Int) = x + 1
+// declaring pure functions
+
+def incr1(x: Int) = x + 1
 // _ transforms a function as a value (Eta expansion)
-prettyType(incr _)
+prettyType(incr1 _)
 
-val incrAlt = { x: Int => x + 1 }
-prettyType(incrAlt)
+val incr2 = { x: Int => x + 1 }
+prettyType(incr2)
+
+// not referentially transparent
+def nrt1(): String = throw new RuntimeException("oops")
+
+prettyType(nrt1 _)
+
+// not referentially transparent
+var mutableString  = "hello"
+def nrt2(): String = { mutableString = "world"; "oops" }
+
+prettyType(nrt2 _)
+
+// ->
+
+// <- Lazy evaluation **************************************
+
+// by default, Scala use strict evaluation
+def strictEval(string: String) = ""
+
+// Using => enables lazy evaluation
+def lazyEval(string: => String) = ""
+
+// ->
+
+// <- ADT **************************************************
+
+// redefining scala Boolean as an ADT
+sealed trait Bool
+
+case object True  extends Bool
+case object False extends Bool
+
+case class Boolean2(
+  b1: Bool,
+  b2: Bool)
+
+// ->
+
+// <- Pattern Matching *************************************
+
+// exhaustive match - compile will fail is a match is missing
+def xor_1(boolean2: Boolean2) = boolean2 match {
+  case Boolean2(True, True)   => 1
+  case Boolean2(False, False) => 1
+  case Boolean2(True, False)  => 0
+  case Boolean2(False, True)  => 0
+}
+
+xor_1(Boolean2(True, False))
+
+// using if and _ placeholder
+def xor_2(boolean2: Boolean2) = boolean2 match {
+  case Boolean2(b1, b2) if b1 == b2 => 1
+  case _                            => 0
+}
+
+xor_2(Boolean2(True, False))
 
 // ->
 
 // <- List *************************************************
+
 list1
 val list2 = list1 :+ 4
 List(List(), List(1))
@@ -60,6 +121,7 @@ val someString = Some("string")
 
 // <- Map **************************************************
 
+// a map is a list of tuples
 val map1 = Map("hello" -> 1, "world" -> 2)
 val map2 = map1 + ("foo" -> 3)
 
@@ -68,13 +130,18 @@ val map2 = map1 + ("foo" -> 3)
 // <- Functor **********************************************
 
 list1.map(a => a + 1)
-list1.filter(a => a % 2 == 0)
+
+someString.map(_ ++ " appended")
+
+// a tuple (k, v) is used to represent a map entry
+map1.map { case (k, v) => (k, v + 1) }
 
 // ->
 
 // <- Monoid ***********************************************
 
 list1 ++ list2
+
 // option is considered as List of 0, 1 elements
 someString ++ none
 someString ++ none ++ someString
@@ -84,8 +151,12 @@ map1 ++ map2
 // ->
 
 // <- Monad ************************************************
+
 list1
+
 list1.flatMap(i => List(i, i + 1))
+
+someString.flatMap(string => Some(string ++ string))
 
 // ->
 
@@ -111,50 +182,6 @@ for {
 
 // ->
 
-// <- Pattern matching *************************************
-
-sealed abstract class Duration(val amount: Int)
-case class Second(seconds: Int) extends Duration(seconds)
-case class Minute(minutes: Int) extends Duration(minutes)
-case class Hour(hours: Int)     extends Duration(hours)
-case class Day(days: Int)       extends Duration(days)
-case class Year(years: Int)     extends Duration(years)
-
-def convert(duration: Duration): List[Duration] =
-  convert2(duration)
-//convert1(duration)
-
-def convert1(duration: Duration): List[Duration] =
-  duration match {
-    case Second(seconds) if seconds > 60 => convert1(Minute(seconds / 60)) :+ Second(seconds % 60)
-    case Minute(minutes) if minutes > 60 => convert1(Hour(minutes / 60)) :+ Minute(minutes % 60)
-    case Hour(hours) if hours > 24       => convert1(Day(hours / 24)) :+ Hour(hours % 24)
-    case other                           => List(other)
-  }
-
-def rules(duration: Duration) = duration match {
-  case _: Second => Some(60, Second, Minute)
-  case _: Minute => Some(60, Minute, Hour)
-  case _: Hour   => Some(24, Hour, Day)
-  case _: Day    => Some(365, Day, Year)
-  case _: Year   => None
-}
-
-def convert2(duration: Duration): List[Duration] =
-  rules(duration) match {
-    case Some((max, currentDuration, nextDuration)) if duration.amount > max =>
-      convert2(nextDuration(duration.amount / max)) :+ currentDuration(duration.amount % max)
-    case _ => List(duration)
-  }
-
-convert(Second(12))
-convert(Second(72))
-convert(Second(6666))
-convert(Second(1000000))
-convert(Second(10000000))
-convert(Second(100000000))
-convert(Minute(73))
-convert(Minute(6666))
-convert(Minute(1000000))
+// <- Exercise *********************************************
 
 // ->
