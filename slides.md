@@ -15,7 +15,7 @@ Functional programming is a programming paradigm that treats
 computation as the evaluation of mathematical functions and
 avoids changing-state and mutable data
 
-• Wikipedia
+• [Wikipedia](https://en.wikipedia.org/wiki/Functional_programming)
 
 ---
 
@@ -31,7 +31,7 @@ and also makes the order of execution irrelevant — since no
 side-effect can change an expression’s value, it can be
 evaluated at any time." 
 
-• John Hughes. "Why Functional Programming Matters", 1990
+• John Hughes, [Why Functional Programming Matters](https://www.cs.kent.ac.uk/people/staff/dat/miranda/whyfp90.pdf), 1990
 
 ---
 
@@ -55,15 +55,15 @@ bugs ..."
 
 *What is a pure function?*
 
- • A function that has no side effects.
+• A function that has no side effects.
 
 *What is a side effect?*
 
- • Modifying a data structure in place
- • Setting a field on an object 
- • Modifying a variable outside the scope of the function
- • Throwing an exception
- • ... 
+• Modifying a data structure in place
+• Setting a field on an object 
+• Modifying a variable outside the scope of the function
+• Throwing an exception
+• ... 
 
 ---
 
@@ -84,7 +84,7 @@ Everything else: immutability, "pure" functions, and so on,
 is in service of that goal. They aren't goals in their own
 right."
 
-https://twitter.com/noelwelsh/status/1255797421935923206
+• [Noel Welsh](https://twitter.com/noelwelsh/status/1255797421935923206)
 
 ---
 
@@ -95,9 +95,8 @@ structuring data. Mostly used with pattern matching. One use
 them to make illegal states impossible to represent.
 
 There are two basic categories of ADTs:
-
- • product types
- • sum types
+• product types
+• sum types
 
 ---
 
@@ -113,7 +112,7 @@ There are two basic categories of ADTs:
 ```
 
 Arity is the sum of its types: 
- • 2 : *True*, *False*
+• 2 : *True*, *False*
 
 ---
 
@@ -126,7 +125,7 @@ Arity is the sum of its types:
 ```
 
 Arity is the product of its fields: 
- • 4 : *True/True*, *True/False*, *False/True*, *False/False*
+• 4 : *True/True*, *True/False*, *False/True*, *False/False*
 
 ---
 
@@ -138,7 +137,7 @@ into its constituent parts.
 
 ```
    
-  val x: Int = generateRandomInt()
+  val x: Int = ???
   
   x match {
     case 0 => "zero"
@@ -195,7 +194,7 @@ see the universal components of a family of structures of a
 given kind, and how structures of different kinds are
 interrelated..."
 
-• https://plato.stanford.edu/entries/category-theory/
+• [Stanford Encyclopedia](https://plato.stanford.edu/entries/category-theory/)
 
 ---
 
@@ -210,13 +209,14 @@ interrelated..."
    
 ```
 
-• `map` is a higher-order function: take
-other functions as parameters or return functions as
-results
+• `map` is a higher-order function: take other functions as
+parameters or return functions as results
 
 ---
 
 -> ## Category Theory: Monoid <- 
+
+"A monoid is something that can be aggregated."
 
 Defines associativy (++) and identity (empty).
 
@@ -251,7 +251,26 @@ Defines composition (flatMap) and pure (unit)
 
 -> ## For comprehension <-
 
-for yield: generator / filters
+To avoid callback hell, Scala has the for comprehension
+operator.
+
+```
+   
+  for {
+    a <- monadA
+    b <- monadB
+    c <- monadC
+  } yield a + b + c
+   
+  // is equivalent to
+   
+  monadA.flatMap(a => 
+    monadB.flatMap(b => 
+      monadC.map(c => a + b + c) 
+    )
+  )
+   
+```
 
 ---
 
@@ -265,27 +284,39 @@ validation rules raise an error, thus letting execution
 continue successfully to the end, generating a positive
 response."
 
-• Wikipedia
+• [Wikipedia](https://en.wikipedia.org/wiki/Happy_path)
 
 ---
 
--> ## Error Handling: Either <-
+-> ## Error Handling: Either monad <-
 
-• Either[E, A]
-• Right(a)
-• Left(e)
+`Either[E, A]` is an ADT with 2 types
+• `Right(a)`
+• `Left(e)`
 
----
-
-Async programming
-
-Future[A]
-
-- doesn't respect referential transparency
+Has a fail-fast mechanism.
 
 ---
 
-Future[Either[E, A]]
+-> ## Asynchronous programming <- 
+
+`Future[A]`
+
+Future doesn't respect referential transparency:
+• strict evaluation
+• failure is handled by Exceptions
+
+---
+
+-> ## Async + error handling <-
+
+`Future[Either[E, A]]`
+
+Not easy to handle even with for-comprehension. We can
+either:
+• write our own monad, eg. `FutureEither[E, A]`
+• use monad transformer for cats/scalaz lib `EitherT[F, E, A]`
+• use cats-effects library like `IO[A]` or `ZIO[R, E, A]` 
 
 ---
 

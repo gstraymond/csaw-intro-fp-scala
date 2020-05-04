@@ -10,9 +10,11 @@ Slides are in markdown format and are meant to be viewed with [mdp](https://gith
 
 [presenter-notes.md](presenter-notes.md)
 
-## Worksheet
+## Worksheets
 
-[src/main/scala/samples.worksheet.sc](src/main/scala/samples.worksheet.sc)
+- [Part 1 - Functional programming](src/main/scala/1-fp.worksheet.sc)
+- [Part 2 - ADT](src/main/scala/2-adt.worksheet.sc)
+- [Part 3 - Category Theory](src/main/scala/3-category-theory.worksheet.sc)
 
 Using [Vim](https://scalameta.org/metals/docs/editors/vim.html#worksheets) with metals
 
