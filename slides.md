@@ -75,6 +75,19 @@ evaluated at any time."
 
 ---
 
+-> ## To sum up <- 
+
+"Functional programming is about being able to use "the
+substitution model of evaluation". That's it. 
+
+Everything else: immutability, "pure" functions, and so on,
+is in service of that goal. They aren't goals in their own
+right."
+
+https://twitter.com/noelwelsh/status/1255797421935923206
+
+---
+
 -> ## Algebraic Data Types <-
 
 Algebraic Data Types (ADTs for short) are a way of
@@ -125,7 +138,7 @@ into its constituent parts.
 
 ```
    
-  val x: Int = generateRandonInt()
+  val x: Int = generateRandomInt()
   
   x match {
     case 0 => "zero"
@@ -175,26 +188,29 @@ Pattern matching can also deconstruct case class.
 
 -> ## Category theory <-
 
-"Category theory formalizes mathematical structure and its
-concepts in terms of a labeled directed graph called a
-category, whose nodes are called objects, and whose labelled
-directed edges are called arrows (or morphisms)."
+"... Roughly, it is a general mathematical theory of
+structures and of systems of structures... At minimum, it is
+a powerful language, or conceptual framework, allowing us to
+see the universal components of a family of structures of a
+given kind, and how structures of different kinds are
+interrelated..."
 
-• Wikipedia
+• https://plato.stanford.edu/entries/category-theory/
 
 ---
 
 -> ## Category Theory: Functor <-
 
+"A functor is something that can be mapped over."
 
 ```
    
-  // for a functor F[A]
-  def map(f: A => B): F[B]
+  // for a Functor[A]
+  def map(f: A => B): Functor[B]
    
 ```
 
-- `map` is a higher-order function: take
+• `map` is a higher-order function: take
 other functions as parameters or return functions as
 results
 
@@ -202,13 +218,16 @@ results
 
 -> ## Category Theory: Monoid <- 
 
-concat / ++
+Defines associativy (++) and identity (empty).
 
-M[A] concat M[A] = M[A]
-
-Option[A]
-List[A]
-Map[A, B]
+```
+   
+  def empty(): Monoid[A]
+   
+  // for a Monoid[A]
+  def ++(m: Monoid[A]): Monoid[A]
+   
+```
 
 ---
 
@@ -217,19 +236,40 @@ Map[A, B]
 "A monad is just a monoid in the category of endofunctors,
 what's the  problem?"
 
-flatMap
+Defines composition (flatMap) and pure (unit)
 
-M[A] flatMap (A => M[B]) = M[B]
+```
+   
+  def unit(a: A): Monad[A]
+   
+  // for a Monad[A]
+  def flatMap(f: A => Monad[B]): Monad[B]
+   
+```
 
-Option[A]
-List[A]
-Map[K, V]
+--- 
+
+-> ## For comprehension <-
 
 for yield: generator / filters
 
 ---
 
-Error Handling - Happy path
+-> ## Error Handling: Happy Path <-
+
+"In the context of software or information modeling, a happy
+path is a default scenario featuring no exceptional or error
+conditions. For example, the happy path for a function
+validating credit card numbers would be where none of the
+validation rules raise an error, thus letting execution
+continue successfully to the end, generating a positive
+response."
+
+• Wikipedia
+
+---
+
+-> ## Error Handling: Either <-
 
 • Either[E, A]
 • Right(a)
@@ -253,11 +293,8 @@ Future[Either[E, A]]
 
 ---
 
-To remove
+-> Exercise <-
 
-    - Pure functions and functions as values
-    - Combinators
-    - Abstracting over types
-    - Composition
-
-Functions as Objects - High Order Function
+Decompose a duration (amount of seconds, minutes...):
+• how many days, hours, minutes and seconds represents
+  1 000 000 seconds ? 

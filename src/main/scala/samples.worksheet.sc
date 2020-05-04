@@ -115,7 +115,7 @@ val list3 = (1 to 10).toList
 // <- Option ***********************************************
 
 val none       = Option.empty[String]
-val someString = Some("string")
+val someString = Some("hello")
 
 // ->
 
@@ -140,11 +140,22 @@ map1.map { case (k, v) => (k, v + 1) }
 
 // <- Monoid ***********************************************
 
+// List[A]
+List.empty[Boolean]
+
 list1 ++ list2
+
+// Option[A]
+
+Option.empty[Boolean]
 
 // option is considered as List of 0, 1 elements
 someString ++ none
 someString ++ none ++ someString
+
+// Map[K, V]
+
+Map.empty[String, String]
 
 map1 ++ map2
 
@@ -152,11 +163,21 @@ map1 ++ map2
 
 // <- Monad ************************************************
 
-list1
+// list
+List(1)
 
 list1.flatMap(i => List(i, i + 1))
 
+// option
+Option(1)
+
 someString.flatMap(string => Some(string ++ string))
+
+// map
+val map3 = Map("k" -> "v")
+map3.flatMap { case (k, v) =>
+  Map(k -> k, v -> v)
+}
 
 // ->
 
