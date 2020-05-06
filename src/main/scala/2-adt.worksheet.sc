@@ -8,7 +8,6 @@ def prettyType[T: TypeTag](
 
 // ->
 
-
 // <- ADT **************************************************
 
 // redefining scala Boolean as an ADT

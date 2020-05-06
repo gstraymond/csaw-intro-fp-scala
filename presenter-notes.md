@@ -2,6 +2,7 @@
 
 ## Agenda
 
+- there is a trend towards the usage of FP program (Scala, Haskell, Rust, Purescript, Reason)
 - better grasp what is Functional Programming
 - to create safer programs
 - through some example using Scala (not a pure FP prog lang but most concepts applies)
