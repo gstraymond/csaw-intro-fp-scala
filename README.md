@@ -1,5 +1,7 @@
 # Introduction to Functional Programming with Scala 
 
+1 hour presentation for to introduce general principles of FP applied to Scala
+
 ## Slides
 
 [slides.md](slides.md)

@@ -37,9 +37,11 @@ val map2 = map1 + ("foo" -> 3)
 
 list1.map(a => a + 1)
 
+none.map(_ ++ " app")
 someString.map(_ ++ " appended")
 
 // a tuple (k, v) is used to represent a map entry
+// F[K,V] => F[K1, V1]
 map1.map { case (k, v) => (k, v + 1) }
 
 // ->
@@ -72,11 +74,14 @@ map1 ++ map2
 // list
 List(1)
 
+list1
+
 list1.flatMap(i => List(i, i + 1))
 
 // option
 Option(1)
 
+none.flatMap(string => Some(string ++ string))
 someString.flatMap(string => Some(string ++ string))
 
 // map
@@ -98,6 +103,9 @@ for {
 } yield i + j
 
 // pattern matching deconstruct
+case class Person(name: String, age: Int)
+val john = Person("john", 25)
+
 for {
   Person(_, age) <- List(john, john.copy(age = 12))
 } yield age

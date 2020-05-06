@@ -28,6 +28,7 @@
 ## Pure Function / Side-effect
 
 - WORKSHEET: Pure function
+- predictability
 
 ## Lazy Evaluation / Parallelization
 

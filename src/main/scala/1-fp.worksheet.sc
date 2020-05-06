@@ -21,7 +21,8 @@ val list1 = List(1, 2, 3)
 prettyType(list1)
 // elements of list1 can't be changed
 //list1(0) = 2
-//list1.updated(0, 2)
+list1.updated(0, 2)
+list1
 
 // immutable class
 case class Person(
