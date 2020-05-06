@@ -32,7 +32,7 @@ val map1 = Map("hello" -> 1, "world" -> 2)
 val map2 = map1 + ("foo" -> 3)
 
 // ->
-//
+
 // <- Functor **********************************************
 
 list1.map(a => a + 1)
@@ -119,18 +119,6 @@ val left  = Left("error")
 
 right flatMap (_ => left)
 right flatMap (i => Right(i + 1))
-
-// ->
-
-// <- For comprehension ************************************
-
-for {
-  a <- List(1, 2, 3)
-  if a > 1
-  f <- List({ i: Int => i * 2 }, { i: Int => i * 3 })
-} yield {
-  f(a)
-}
 
 // ->
 
